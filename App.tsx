@@ -5,9 +5,9 @@
  * @format
  */
 
-import {AuthContextProvider} from '@/contexts/auth.context';
+import { AuthContextProvider } from '@/contexts/auth.context';
 import AppNavigation from '@/navigations/AppNavigation';
-import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import React from 'react';
 import {
   SafeAreaView,
@@ -15,12 +15,16 @@ import {
   StyleSheet,
   useColorScheme,
 } from 'react-native';
-import {GestureHandlerRootView} from 'react-native-gesture-handler';
-import {ToastProvider} from 'react-native-toast-notifications';
-
-import {Colors} from 'react-native/Libraries/NewAppScreen';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { ToastProvider } from 'react-native-toast-notifications';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
+import { configureReanimatedLogger } from 'react-native-reanimated';
 
 function App(): React.JSX.Element {
+  configureReanimatedLogger({
+    strict: false,
+  });
+
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {

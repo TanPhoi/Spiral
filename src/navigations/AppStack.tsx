@@ -2,7 +2,7 @@ import {tabScreens} from '@/constants/screens.constant';
 import colors from '@/themes/colors';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {ParamListBase, RouteProp} from '@react-navigation/native';
-import React from 'react';
+import React, {JSX} from 'react';
 import {StyleSheet, View} from 'react-native';
 
 type CustomRouteProp = RouteProp<ParamListBase, string> & {
@@ -17,23 +17,27 @@ const Tab = createBottomTabNavigator();
 const AppStack = (): JSX.Element => {
   return (
     <Tab.Navigator
-      screenOptions={{
-        headerShown: false,
-        tabBarActiveTintColor: colors.blue[600],
-        tabBarInactiveTintColor: colors.gray[700],
-        tabBarLabelStyle: {
-          fontSize: 10,
-          fontWeight: '600',
-        },
-        tabBarStyle: {
-          paddingBottom: 15,
-          height: 60,
-          borderTopWidth: 0,
-          elevation: 0,
-          shadowOpacity: 0,
-        },
+      screenOptions={({route}) => {
+        return {
+          headerShown: false,
+          tabBarHideOnKeyboard: true,
+          tabBarActiveTintColor: colors.blue[600],
+          tabBarInactiveTintColor: colors.gray[700],
+
+          tabBarLabelStyle: {
+            fontSize: 10,
+            fontWeight: '600',
+          },
+          tabBarStyle: {
+            paddingBottom: 15,
+            height: 60,
+            borderTopWidth: 0,
+            elevation: 0,
+            shadowOpacity: 0,
+          },
+        };
       }}>
-      {tabScreens.map(screen => (
+      {tabScreens.map((screen, index) => (
         <Tab.Screen
           key={screen.label}
           name={screen.label}
@@ -64,7 +68,7 @@ const AppStack = (): JSX.Element => {
                   <View style={styles.iconWrapper}>
                     <IconComponent color={color} width={21} height={21} />
                   </View>
-                  {focused && <View style={styles.activeBorder}></View>}
+                  {focused && <View style={styles.activeBorder} />}
                 </View>
               );
             },

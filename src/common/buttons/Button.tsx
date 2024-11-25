@@ -1,3 +1,4 @@
+import colors from '@/themes/colors';
 import {typography} from '@/themes/typography';
 import React from 'react';
 import {
@@ -5,13 +6,14 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  View,
 } from 'react-native';
 
 type ButtonProps = {
   label: string;
   disabled: boolean;
   loading?: boolean;
+  background?: string;
+  color?: string;
   onPress: () => void;
 };
 
@@ -19,16 +21,22 @@ const Button = ({
   label,
   disabled,
   loading = false,
+  background,
+  color,
   onPress,
 }: ButtonProps): JSX.Element => {
   return (
     <TouchableOpacity
       onPress={onPress}
       disabled={disabled}
-      style={[styles.btn, !disabled ? undefined : styles.overlay]}>
+      style={[
+        styles.btn,
+        !disabled ? undefined : styles.overlay,
+        {backgroundColor: background || colors.blue[600]},
+      ]}>
       {loading && <ActivityIndicator color={'white'} size={20} />}
 
-      <Text style={styles.txtButton}>{label}</Text>
+      <Text style={[styles.txtButton, {color: color || 'white'}]}>{label}</Text>
     </TouchableOpacity>
   );
 };
@@ -36,7 +44,6 @@ const Button = ({
 const styles = StyleSheet.create({
   btn: {
     paddingVertical: 12,
-    backgroundColor: '#2563EB',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
@@ -44,7 +51,6 @@ const styles = StyleSheet.create({
     columnGap: 6,
   },
   txtButton: {
-    color: 'white',
     fontWeight: '600',
     ...typography.body,
   },

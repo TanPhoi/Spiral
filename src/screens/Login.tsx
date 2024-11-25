@@ -18,7 +18,6 @@ import {getMe, login, login3rdParty} from '@/apis/auth';
 import {useToast} from 'react-native-toast-notifications';
 import {useAuthContext} from '@/contexts/auth.context';
 import InstagramLogin from 'react-native-instagram-login';
-import CookieManager from '@react-native-community/cookies';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import {
   LoginButton,
@@ -97,6 +96,7 @@ const Login = (): JSX.Element => {
     try {
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
+
       login3rdParty(userInfo.data?.user)
         .then(res => {
           console.log(res);

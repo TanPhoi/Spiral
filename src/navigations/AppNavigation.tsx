@@ -6,6 +6,7 @@ import {useAuthContext} from '@/contexts/auth.context';
 import {getMe} from '@/apis/auth';
 import {Image, StyleSheet, Text, View} from 'react-native';
 import Video, {VideoRef} from 'react-native-video';
+import {PaperProvider} from 'react-native-paper';
 
 const AppNavigation = (): JSX.Element => {
   const [loading, setLoading] = useState<boolean>(true);
@@ -47,7 +48,6 @@ const AppNavigation = (): JSX.Element => {
 
   return (
     <NavigationContainer>
-      {/* <AuthStack /> */}
       {userInfo ? <AppStack /> : <AuthStack />}
     </NavigationContainer>
   );

@@ -58,6 +58,7 @@ export default {
     700: '#1D4ED8',
     800: '#1E40AF',
     900: '#1E3A8A',
+    950: '#0F172A',
   },
   purple: {
     50: '#FAF5FF',
@@ -111,6 +112,7 @@ export default {
     50: '#FEFCE8',
     100: '#FEF08A',
     200: '#FCD34D',
+    250: '#FACC15',
     300: '#FBBF24',
     400: '#F59E0B',
     500: '#D97706',

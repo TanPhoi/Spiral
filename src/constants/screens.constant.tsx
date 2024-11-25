@@ -5,18 +5,29 @@ import {
   IcReports,
   IcProfile,
 } from '@/assets/svg';
-import Content from '@/screens/Content';
 import Home from '@/screens/Home';
-import Workspace from '@/screens/Workspace';
+import Workspace from '@/screens/workspace/Workspace';
 import Reports from '@/screens/Reports';
-import Profile from '@/screens/Profile';
-import {createMaterialBottomTabNavigator} from 'react-native-paper/react-navigation';
-import {ComponentType, ElementType} from 'react';
+import Profile from '@/screens/profile/Profile';
+import React, { ComponentType, ElementType } from 'react';
+import { createMaterialBottomTabNavigator } from 'react-native-paper/react-navigation';
+import CampaignDetails from '@/screens/workspace/CampaignDetails';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import CreateContent from '@/screens/workspace/CreateContent';
+import SuccessSubmitContent from '@/screens/workspace/SuccessSubmitContent';
+import Content from '@/screens/content/Content';
+import ContentDetail from '@/screens/content/ContentDetail';
+import ChangePassword from '@/screens/profile/ChangePassword';
+import NotificationSetting from '@/screens/profile/NotificationSetting';
+import PaymentMethods from '@/screens/profile/PaymentMethods';
+import MyProfile from '@/screens/profile/MyProfile';
+import ConnectSocialsAccount from '@/screens/profile/ConnectSocialsAccount';
 
 export const LAYOUT = 32;
 export const LAYOUT_APP = 18;
 
 const Tab = createMaterialBottomTabNavigator();
+const Stack = createNativeStackNavigator();
 
 export type TabScreenConfig = {
   name: string;
@@ -24,21 +35,26 @@ export type TabScreenConfig = {
   icon?: ComponentType<ElementType | any> | null;
 };
 
-const createTabNavigator = (
-  screens: TabScreenConfig[],
-  initialRouteName: string,
-) => {
+type CreateTabNavigatorProps = {
+  screens: TabScreenConfig[];
+  initialRouteName: string;
+};
+
+const createTabNavigator = ({
+  screens,
+  initialRouteName,
+}: CreateTabNavigatorProps) => {
   return (
     <Tab.Navigator
       initialRouteName={initialRouteName}
-      barStyle={{display: 'none'}}>
+      barStyle={{ display: 'none' }}>
       {screens.map(screen => (
         <Tab.Screen
           key={screen.name}
           name={screen.name}
           component={screen.component}
           options={{
-            tabBarIcon: ({color}) =>
+            tabBarIcon: ({ color }: { color: string }) =>
               screen.icon && <screen.icon color={color} />,
           }}
         />
@@ -48,56 +64,71 @@ const createTabNavigator = (
 };
 
 export const homeScreens: TabScreenConfig[] = [
-  {name: 'home', component: Home, icon: IcHome},
+  { name: 'home', component: Home, icon: IcHome },
 ];
 
 export const workspaceScreens: TabScreenConfig[] = [
-  {name: 'workspace', component: Workspace, icon: IcWork_space},
+  { name: 'workspace', component: Workspace, icon: IcWork_space },
+  { name: 'campaign-details', component: CampaignDetails, icon: IcWork_space },
+  { name: 'create-content', component: CreateContent, icon: IcWork_space },
+  { name: 'success_submit_content', component: SuccessSubmitContent, icon: IcWork_space },
 ];
 
 export const contentScreens: TabScreenConfig[] = [
-  {name: 'content', component: Content, icon: IcContent},
+  { name: 'content', component: Content, icon: IcContent },
+  { name: 'content-detail', component: ContentDetail, icon: IcContent },
 ];
 
 export const reportScreens: TabScreenConfig[] = [
-  {name: 'report', component: Reports, icon: IcReports},
+  { name: 'report', component: Reports, icon: IcReports },
 ];
 
 export const profileScreens: TabScreenConfig[] = [
-  {name: 'profile', component: Profile, icon: IcProfile},
+  { name: 'profile', component: Profile, icon: IcProfile },
+  { name: 'change-password', component: ChangePassword, icon: IcProfile },
+  { name: 'notification-setting', component: NotificationSetting, icon: IcProfile },
+  { name: 'payment-methods', component: PaymentMethods, icon: IcProfile },
+  { name: 'my-profile', component: MyProfile, icon: IcProfile },
+  { name: 'connect-socials-account', component: ConnectSocialsAccount, icon: IcProfile },
 ];
 
-export const HomeTabs = () => createTabNavigator(homeScreens, 'home');
+export const HomeTabs = () =>
+  createTabNavigator({ screens: homeScreens, initialRouteName: 'home' });
 export const WorkspaceRoutes = () =>
-  createTabNavigator(workspaceScreens, 'campaign');
+  createTabNavigator({
+    screens: workspaceScreens,
+    initialRouteName: 'workspace',
+  });
 export const ContentRoutes = () =>
-  createTabNavigator(contentScreens, 'content');
-export const ReportTabs = () => createTabNavigator(reportScreens, 'reports');
-export const ProfileTabs = () => createTabNavigator(profileScreens, 'profile');
+  createTabNavigator({ screens: contentScreens, initialRouteName: 'content' });
+export const ReportTabs = () =>
+  createTabNavigator({ screens: reportScreens, initialRouteName: 'report' });
+export const ProfileTabs = () =>
+  createTabNavigator({ screens: profileScreens, initialRouteName: 'profile' });
 
 export const tabScreens = [
   {
-    component: Home,
+    component: HomeTabs,
     label: 'Home',
     icon: IcHome,
   },
   {
-    component: Workspace,
+    component: WorkspaceRoutes,
     label: 'Workspace',
     icon: IcWork_space,
   },
   {
-    component: Content,
+    component: ContentRoutes,
     label: 'Content',
     icon: IcContent,
   },
   {
-    component: Reports,
+    component: ReportTabs,
     label: 'Report',
     icon: IcReports,
   },
   {
-    component: Profile,
+    component: ProfileTabs,
     label: 'Profile',
     icon: IcProfile,
   },
