@@ -32,6 +32,10 @@ export type User = {
   dob?: string;
   creator?: User;
   deleted_at?: number | null;
+  instagramFollowersNumber?:number,
+  instagramFollowsCount?:number,
+  instagramMediaCount?:number,
+  expertises?:string []
   avatarUrl?: string;
   biography?: string;
   platform?: null | [];
