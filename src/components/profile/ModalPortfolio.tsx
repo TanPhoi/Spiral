@@ -1,24 +1,24 @@
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet'
 import colors from '@/themes/colors'
-import { XMarkIcon } from 'react-native-heroicons/outline'
+import { LinkIcon, XMarkIcon } from 'react-native-heroicons/outline'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { typography } from '@/themes/typography'
+import InputSearch from '@/common/inputs/InputSearch'
+import Checkbox from '@/common/checkboxs/Checkbox'
 import Button from '@/common/buttons/Button'
 import { KeyboardAvoidingScrollView } from 'react-native-keyboard-avoiding-scroll-view'
 
-type ModalBiographyProps = {
+type ModalPortfolioProps = {
     open: boolean
     onClose: () => void
 }
 
-const ModalBiography = ({ open, onClose }: ModalBiographyProps): JSX.Element => {
+const ModalPortfolio = ({ open, onClose }: ModalPortfolioProps): JSX.Element => {
     const bottomSheetModalRef = useRef<BottomSheetModal>(null)
     const [isBottomSheetVisible, setIsBottomSheetVisible] = useState<boolean>(open)
-    const [bio, setBio] = useState<string>('')
     const [loading, setLoading] = useState<boolean>(false)
-    const [maxLength, setMaxLength] = useState<number>(150)
 
     useEffect(() => {
         if (open && bottomSheetModalRef.current) {
@@ -43,49 +43,51 @@ const ModalBiography = ({ open, onClose }: ModalBiographyProps): JSX.Element => 
         onClose();
     };
 
-
     return (
         <BottomSheetModal
             ref={bottomSheetModalRef}
             snapPoints={['100%', '100%']}
-            enablePanDownToClose
+            enablePanDownToClose={false}
+            enableOverDrag={false}
             onChange={handleSheetChanges}
             handleComponent={() => (
-                <SafeAreaView style={styles.header}>
-                    <TouchableOpacity onPress={handleToggleModal}>
-                        <XMarkIcon color={colors.gray[700]} width={24} height={24} />
-                    </TouchableOpacity>
-                    <Text style={styles.txtHeader}>Bio</Text>
-                    <View />
+                <SafeAreaView>
+                    <View style={styles.header}>
+                        <TouchableOpacity onPress={handleToggleModal}>
+                            <XMarkIcon color={colors.gray[700]} width={24} height={24} />
+                        </TouchableOpacity>
+                        <Text style={styles.txtHeader}>Portfolio</Text>
+                        <View />
+                    </View>
                 </SafeAreaView>
             )}>
 
             <BottomSheetView style={styles.container}>
-                <KeyboardAvoidingScrollView>
-                    <View style={styles.body}>
-                        <TextInput
-                            style={styles.input}
-                            multiline
-                            value={bio}
-                            onChangeText={setBio}
-                            textAlignVertical="top"
-                            maxLength={maxLength}
-                            placeholder='Write something...' />
-                        <Text style={styles.numberChar}>{maxLength - bio.length}</Text>
-                        <View style={styles.divider} />
-                        <Text style={styles.desc}>Brief description for your profile</Text>
-                    </View>
-                </KeyboardAvoidingScrollView>
+                <View style={styles.body}>
+                    <KeyboardAvoidingScrollView>
 
-                <View style={styles.button}>
+                        <Text style={styles.label}>Link social post</Text>
+
+                        <View style={styles.linkList}>
+                            {
+                                Array.from({ length: 3 }).map((item, index) => (
+                                    <View key={index} style={styles.input}>
+                                        <LinkIcon color={colors.gray[500]} width={20} height={20} />
+                                        <TextInput placeholder='Paste Link' style={styles.txtPasteLink} />
+                                    </View>
+                                ))
+                            }
+                        </View>
+
+                    </KeyboardAvoidingScrollView>
+
                     <Button
                         label={'Done'}
-                        disabled={true}
+                        disabled={false}
                         onPress={function (): void {
                             throw new Error('Function not implemented.')
                         }} />
                 </View>
-
             </BottomSheetView>
         </BottomSheetModal>
     )
@@ -121,25 +123,33 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     body: {
-        marginTop: 36,
+        marginTop: 32,
         paddingHorizontal: 16,
+        flex: 1,
+    },
+    label: {
+        color: colors.gray[800],
+        fontWeight: '500',
+        ...typography.body
+    },
+    linkList: {
+        marginTop: 8,
+        rowGap: 16,
+    },
+    txtPasteLink: {
+        fontWeight: '500',
+        ...typography.body,
+        flex: 1,
     },
     input: {
-        // height: 95,
-        color: colors.gray[800],
-        ...typography.body,
+        width: '100%',
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: colors.gray[100],
+        borderRadius: 8,
+        paddingHorizontal: 16,
+        columnGap: 16,
     },
-    numberChar: {
-        alignSelf: 'flex-end'
-    },
-    desc: {
-        marginTop: 8,
-        color: colors.gray[500],
-        ...typography.caption,
-    },
-    button: {
-        marginHorizontal: 16,
-    }
 })
 
-export default ModalBiography
+export default ModalPortfolio

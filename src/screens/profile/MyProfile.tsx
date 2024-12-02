@@ -10,6 +10,8 @@ import { IcFacebook, IcInstagram, IcTikTok } from '@/assets/svg'
 import { Social } from '@/models/Social.model'
 import { useAuthContext } from '@/contexts/auth.context'
 import ModalBiography from '@/components/profile/ModalBiography'
+import ModalExpertise from '@/components/profile/ModalExpertise'
+import ModalPortfolio from '@/components/profile/ModalPortfolio'
 
 const socialMediaData = [
     {
@@ -30,6 +32,9 @@ const MyProfile = (): JSX.Element => {
     const { userInfo } = useAuthContext()
     const navigation: NavigationProp<ParamListBase> = useNavigation()
     const [selectedSocial, setSelectedSocial] = useState<Social>('');
+    const [isModalBio, setIsModalBio] = useState<boolean>(false);
+    const [isModalExpertise, setIsModalExpertise] = useState<boolean>(false);
+    const [isModalPortfolio, setIsModalPortfolio] = useState<boolean>(false);
 
     const getBackgroundColor = (type: Social) => {
         if (selectedSocial) {
@@ -130,7 +135,7 @@ const MyProfile = (): JSX.Element => {
                             <View style={styles.aboutContainer}>
                                 <View style={styles.aboutInfo}>
                                     <Text style={styles.label}>Biography</Text>
-                                    <TouchableOpacity>
+                                    <TouchableOpacity onPress={(): void => setIsModalBio(true)}>
                                         <Text style={styles.addAbout}>Add Biography</Text>
                                     </TouchableOpacity>
                                 </View>
@@ -140,7 +145,7 @@ const MyProfile = (): JSX.Element => {
                             <View style={styles.aboutContainer}>
                                 <View style={styles.aboutInfo}>
                                     <Text style={styles.label}>Expertise</Text>
-                                    <TouchableOpacity>
+                                    <TouchableOpacity onPress={(): void => setIsModalExpertise(true)}>
                                         <Text style={styles.addAbout}>Add Expertise</Text>
                                     </TouchableOpacity>
                                 </View>
@@ -181,7 +186,7 @@ const MyProfile = (): JSX.Element => {
                             <View style={styles.aboutContainer}>
                                 <View style={styles.aboutInfo}>
                                     <Text style={styles.label}>Portfolio</Text>
-                                    <TouchableOpacity>
+                                    <TouchableOpacity onPress={(): void => setIsModalPortfolio(true)}>
                                         <Text style={styles.addAbout}>Add Portfolio</Text>
                                     </TouchableOpacity>
                                 </View>
@@ -191,7 +196,17 @@ const MyProfile = (): JSX.Element => {
                 </ScrollView>
 
                 {/* Modal Bio */}
-                <ModalBiography />
+                <ModalBiography
+                    open={isModalBio}
+                    onClose={(): void => setIsModalBio(false)} />
+
+                <ModalExpertise
+                    open={isModalExpertise}
+                    onClose={(): void => setIsModalExpertise(false)} />
+
+                <ModalPortfolio
+                    open={isModalPortfolio}
+                    onClose={(): void => setIsModalPortfolio(false)} />
             </View>
         </SafeAreaView>
     )
