@@ -5,7 +5,6 @@ import {
   IcReports,
   IcProfile,
 } from '@/assets/svg';
-import Home from '@/screens/Home';
 import Workspace from '@/screens/workspace/Workspace';
 import Reports from '@/screens/Reports';
 import Profile from '@/screens/profile/Profile';
@@ -22,6 +21,9 @@ import NotificationSetting from '@/screens/profile/NotificationSetting';
 import PaymentMethods from '@/screens/profile/PaymentMethods';
 import MyProfile from '@/screens/profile/MyProfile';
 import ConnectSocialsAccount from '@/screens/profile/ConnectSocialsAccount';
+import EditProfile from '@/screens/profile/EditProfile';
+import GeoLocation from '@/screens/home/GeoLocation';
+import Home from '@/screens/home/Home';
 
 export const LAYOUT = 32;
 export const LAYOUT_APP = 18;
@@ -65,6 +67,7 @@ const createTabNavigator = ({
 
 export const homeScreens: TabScreenConfig[] = [
   { name: 'home', component: Home, icon: IcHome },
+  { name: 'geo-location', component: GeoLocation, icon: IcHome },
 ];
 
 export const workspaceScreens: TabScreenConfig[] = [
@@ -90,6 +93,7 @@ export const profileScreens: TabScreenConfig[] = [
   { name: 'payment-methods', component: PaymentMethods, icon: IcProfile },
   { name: 'my-profile', component: MyProfile, icon: IcProfile },
   { name: 'connect-socials-account', component: ConnectSocialsAccount, icon: IcProfile },
+  { name: 'edit-profile', component: EditProfile, icon: IcProfile },
 ];
 
 export const HomeTabs = () =>

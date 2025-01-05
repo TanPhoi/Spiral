@@ -142,6 +142,7 @@ const Workspace = (): JSX.Element => {
                   />
                 </View>
               )}
+              keyExtractor={(item, index) => index.toString()}
             />
           )}
         </View>

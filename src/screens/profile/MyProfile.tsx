@@ -136,10 +136,14 @@ const MyProfile = (): JSX.Element => {
                                 <View style={styles.aboutInfo}>
                                     <Text style={styles.label}>Biography</Text>
                                     <TouchableOpacity onPress={(): void => setIsModalBio(true)}>
-                                        <Text style={styles.addAbout}>Add Biography</Text>
+                                        <Text style={styles.addAbout}>{userInfo?.creator?.biography ? 'Edit Biography' : 'Add Biography'}</Text>
                                     </TouchableOpacity>
                                 </View>
-                                <Text style={styles.aboutContent}>{userInfo?.creator?.biography}</Text>
+                                {
+                                    userInfo?.creator?.biography && (
+                                        <Text style={styles.aboutContent}>{userInfo?.creator?.biography}</Text>
+                                    )
+                                }
                             </View>
 
                             <View style={styles.aboutContainer}>
@@ -332,7 +336,7 @@ const styles = StyleSheet.create({
         rowGap: 8,
         borderBottomWidth: 1,
         paddingBottom: 12,
-        borderColor: colors.gray[200]
+        borderColor: colors.gray[200],
     },
     aboutInfo: {
         flexDirection: 'row',
@@ -347,11 +351,11 @@ const styles = StyleSheet.create({
     label: {
         color: colors.gray[800],
         fontWeight: '500',
-        ...typography.body
+        ...typography.body,
     },
     aboutContent: {
         color: colors.gray[800],
-        ...typography.body
+        ...typography.body,
     },
     aboutGroup: {
         flexDirection: 'row',

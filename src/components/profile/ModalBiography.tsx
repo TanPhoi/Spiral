@@ -7,6 +7,8 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { typography } from '@/themes/typography'
 import Button from '@/common/buttons/Button'
 import { KeyboardAvoidingScrollView } from 'react-native-keyboard-avoiding-scroll-view'
+import { editProfile } from '@/apis/creator'
+import { useAuthContext } from '@/contexts/auth.context'
 
 type ModalBiographyProps = {
     open: boolean
@@ -14,6 +16,7 @@ type ModalBiographyProps = {
 }
 
 const ModalBiography = ({ open, onClose }: ModalBiographyProps): JSX.Element => {
+    const { userInfo, handleRefreshUserInfo } = useAuthContext()
     const bottomSheetModalRef = useRef<BottomSheetModal>(null)
     const [isBottomSheetVisible, setIsBottomSheetVisible] = useState<boolean>(open)
     const [bio, setBio] = useState<string>('')
@@ -40,15 +43,28 @@ const ModalBiography = ({ open, onClose }: ModalBiographyProps): JSX.Element => 
 
     const handleToggleModal = (): void => {
         setIsBottomSheetVisible(!isBottomSheetVisible);
+        setBio('')
         onClose();
     };
 
+    const handleEditBio = (): void => {
+        setLoading(true)
+        editProfile(userInfo?.id || '', { biography: bio }).then(() => {
+            handleRefreshUserInfo()
+            handleToggleModal()
+        }).catch((err) => {
+            console.log(err);
+        }).finally(() => {
+            setLoading(false)
+        })
+    }
 
     return (
         <BottomSheetModal
             ref={bottomSheetModalRef}
             snapPoints={['100%', '100%']}
-            enablePanDownToClose
+            enablePanDownToClose={false}
+            enableOverDrag={false}
             onChange={handleSheetChanges}
             handleComponent={() => (
                 <SafeAreaView style={styles.header}>
@@ -80,10 +96,9 @@ const ModalBiography = ({ open, onClose }: ModalBiographyProps): JSX.Element => 
                 <View style={styles.button}>
                     <Button
                         label={'Done'}
-                        disabled={true}
-                        onPress={function (): void {
-                            throw new Error('Function not implemented.')
-                        }} />
+                        disabled={bio.length === 0}
+                        loading={loading}
+                        onPress={handleEditBio} />
                 </View>
 
             </BottomSheetView>

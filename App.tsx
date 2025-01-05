@@ -8,7 +8,7 @@
 import { AuthContextProvider } from '@/contexts/auth.context';
 import AppNavigation from '@/navigations/AppNavigation';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   SafeAreaView,
   StatusBar,
@@ -19,6 +19,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { ToastProvider } from 'react-native-toast-notifications';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { configureReanimatedLogger } from 'react-native-reanimated';
+import { requestUserPermission } from '@/utils/notification';
 
 function App(): React.JSX.Element {
   configureReanimatedLogger({
@@ -30,6 +31,10 @@ function App(): React.JSX.Element {
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
+
+  useEffect(() => {
+    requestUserPermission()
+  }, [])
 
   return (
     <SafeAreaView style={[backgroundStyle, styles.container]}>

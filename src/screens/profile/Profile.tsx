@@ -22,7 +22,7 @@ const Profile = (): JSX.Element => {
             <View style={styles.header}>
               <Image style={styles.imgAvatar} source={{ uri: "https://meatworld.com.vn/wp-content/uploads/anh-avatar-anime-8BUm94I.jpg" }} />
               <Text style={styles.name}>Hi, Harna Alisha</Text>
-              <TouchableOpacity style={styles.btnEdit}>
+              <TouchableOpacity style={styles.btnEdit} onPress={(): void => navigation.navigate('edit-profile')}>
                 <PencilSquareIcon />
               </TouchableOpacity>
             </View>

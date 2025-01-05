@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "875763357441",
+    "firebase_url": "https://spiral-b615b-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "spiral-b615b",
+    "storage_bucket": "spiral-b615b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:875763357441:android:20f7f09a11d1db4a7a2d00",
+        "android_client_info": {
+          "package_name": "com.spiralapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7W-y_7tJ-BXK_pDbFyE92S0IpOB8IpjY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

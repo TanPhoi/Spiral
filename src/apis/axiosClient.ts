@@ -1,8 +1,8 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import axios, {InternalAxiosRequestConfig} from 'axios';
+import axios, { InternalAxiosRequestConfig } from 'axios';
 
 const axiosClient = axios.create({
-  baseURL: 'http://192.168.1.7:3001',
+  baseURL: 'http://192.168.1.13:3001',
   timeout: 10000,
   headers: {
     contentType: 'application/json',
@@ -22,7 +22,7 @@ axiosClient.interceptors.request.use(
 
 axiosClient.interceptors.response.use(
   response => response.data,
-  ({message, response}) => {
+  ({ message, response }) => {
     if (response?.status === 401) {
       AsyncStorage.removeItem('access_token');
       return;
@@ -42,13 +42,13 @@ axiosClient.interceptors.response.use(
 
 const getAuthHeaders = async () => {
   const token = await AsyncStorage.getItem('access_token');
-  return token ? {Authorization: `Bearer ${token}`} : {};
+  return token ? { Authorization: `Bearer ${token}` } : {};
 };
 
 const getData = async (url: string, params = {}) => {
   try {
     const headers = await getAuthHeaders();
-    const result = await axiosClient.get(url, {params, headers});
+    const result = await axiosClient.get(url, { params, headers });
     return result;
   } catch (e) {
     throw e;
@@ -62,7 +62,7 @@ const postData = async (url: string, data = {}) => {
       'Content-Type':
         data instanceof FormData ? 'multipart/form-data' : 'application/json',
     };
-    const result = await axiosClient.post(url, data, {headers});
+    const result = await axiosClient.post(url, data, { headers });
     return result;
   } catch (e) {
     throw e;
@@ -75,7 +75,7 @@ const putData = async (url: string, data = {}) => {
 };
 
 const deleteData = async (url: string, params = {}) => {
-  const result = await axiosClient.delete(url, {params});
+  const result = await axiosClient.delete(url, { params });
   return result;
 };
 
@@ -84,5 +84,5 @@ const patchData = async (url: string, data = {}) => {
   return result;
 };
 
-export {deleteData, getData, patchData, postData, putData};
+export { deleteData, getData, patchData, postData, putData };
 export default axiosClient;

@@ -1,15 +1,15 @@
-import {View, Text, StyleSheet, Image} from 'react-native';
-import React, {JSX} from 'react';
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import React, { JSX, memo } from 'react';
 import colors from '@/themes/colors';
-import {typography} from '@/themes/typography';
+import { typography } from '@/themes/typography';
 import ButtonTab from '@/common/buttons/ButtonTab';
 import ButtonBase from '@/common/buttons/ButtonBase';
-import {Influencer} from '@/models/Campaign.model';
+import { Influencer } from '@/models/Campaign.model';
 import dayjs from 'dayjs';
-import {DATE_FORMAT, DATE_TIME_FORMAT} from '@/constants/time.constant';
-import {getSocialMediaIcon} from '@/helper/campaign.helper';
-import {responseInvitationOfBrand} from '@/apis/campaign';
-import {useToast} from 'react-native-toast-notifications';
+import { DATE_FORMAT, DATE_TIME_FORMAT } from '@/constants/time.constant';
+import { getSocialMediaIcon } from '@/helper/campaign.helper';
+import { responseInvitationOfBrand } from '@/apis/campaign';
+import { useToast } from 'react-native-toast-notifications';
 import {
   NavigationProp,
   ParamListBase,
@@ -69,16 +69,18 @@ const CampaignCard = ({
   };
 
   const handleReview = (): void => {
-    navigation.navigate('campaign-details', {id: campaign?.campaign?.id});
+    navigation.navigate('campaign-details', { id: campaign?.campaign?.id });
   };
 
   return (
-    <View style={styles.container}>
+    <TouchableOpacity style={styles.container} onPress={() => {
+      campaign.status === 'joined_campaign' && handleReview()
+    }}>
       <View style={styles.brandBox}>
         <Image
           style={styles.avatar}
           source={{
-            uri: 'https://meatworld.com.vn/wp-content/uploads/anh-avatar-anime-2-1.jpg',
+            uri: 'https://i.pinimg.com/236x/7d/12/be/7d12bed1ada28593e5d76eece02692cb.jpg',
           }}
         />
         <View>
@@ -171,7 +173,7 @@ const CampaignCard = ({
           </>
         )}
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
@@ -194,7 +196,7 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 12,
-    resizeMode: 'contain',
+    resizeMode: 'cover',
   },
   brandName: {
     color: colors.gray[800],
@@ -292,4 +294,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CampaignCard;
+export default memo(CampaignCard);

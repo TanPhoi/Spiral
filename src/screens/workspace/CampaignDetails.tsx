@@ -223,7 +223,7 @@ const CampaignDetails = (): JSX.Element => {
           onCancel={() => setModalType('')}
         />
 
-        {campaign?.status === 'waiting_to_apply' && (
+        {campaign?.status === 'joined_campaign' && (
           <ButtonBase
             title={'Create Content'}
             color={'white'}

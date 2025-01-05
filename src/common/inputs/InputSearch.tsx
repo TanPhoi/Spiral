@@ -1,18 +1,20 @@
 import colors from '@/themes/colors';
-import {typography} from '@/themes/typography';
-import React, {useState} from 'react';
-import {StyleSheet, TextInput, View} from 'react-native';
-import {MagnifyingGlassIcon} from 'react-native-heroicons/outline';
+import { typography } from '@/themes/typography';
+import React, { useState } from 'react';
+import { StyleSheet, TextInput, View } from 'react-native';
+import { MagnifyingGlassIcon } from 'react-native-heroicons/outline';
 
 type InputSearchProps = {
   value: string;
   onChangeText: (value: string) => void;
   placeholder: string;
+  onEnd?: () => void;
 };
 const InputSearch = ({
   value,
   onChangeText,
   placeholder,
+  onEnd
 }: InputSearchProps): JSX.Element => {
   return (
     <View style={styles.container}>
@@ -22,6 +24,7 @@ const InputSearch = ({
         placeholder={placeholder}
         onChangeText={onChangeText}
         style={styles.input}
+        onEndEditing={onEnd}
       />
     </View>
   );

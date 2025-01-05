@@ -1,10 +1,10 @@
-import {registerCreator} from '@/apis/auth';
+import { registerCreator } from '@/apis/auth';
 import Button from '@/common/buttons/Button';
 import Input from '@/common/inputs/Input';
 import InputCountry from '@/common/inputs/InputCountry';
 import Overlay from '@/common/overlay/Overlay';
 import ModalSelect from '@/common/selects/ModalSelect';
-import {CATEGORIES_OPTION} from '@/constants/categories.constant';
+import { CATEGORIES_OPTION } from '@/constants/categories.constant';
 import {
   CONFIRM_PASSWORD_REQUIRED,
   EMAIL_REQUIRED,
@@ -13,25 +13,23 @@ import {
   PASSWORD_MISMATCH,
   PHONE_REQUIRED,
 } from '@/constants/message.constant';
-import {SignUpPayload} from '@/models/User.model';
+import { SignUpPayload } from '@/models/User.model';
 import colors from '@/themes/colors';
-import {typography} from '@/themes/typography';
-import {createPasswordValidatorSchema} from '@/validators/account.validator';
-import {yupResolver} from '@hookform/resolvers/yup';
+import { typography } from '@/themes/typography';
+import { createPasswordValidatorSchema } from '@/validators/account.validator';
+import { yupResolver } from '@hookform/resolvers/yup';
 import {
   Link,
   NavigationProp,
   ParamListBase,
   useNavigation,
 } from '@react-navigation/native';
-import React, {useCallback, useState} from 'react';
-import {Controller, useForm} from 'react-hook-form';
-import {StyleSheet, Text, View} from 'react-native';
-import {KeyboardAvoidingScrollView} from 'react-native-keyboard-avoiding-scroll-view';
-import {useToast} from 'react-native-toast-notifications';
+import React, { useCallback, useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import { StyleSheet, Text, View } from 'react-native';
+import { KeyboardAvoidingScrollView } from 'react-native-keyboard-avoiding-scroll-view';
+import { useToast } from 'react-native-toast-notifications';
 import * as yup from 'yup';
-import {configureReanimatedLogger} from 'react-native-reanimated';
-import {useAsyncStorage} from '@react-native-async-storage/async-storage';
 
 const fromSchema = yup.object().shape({
   name: yup.string().required(NAME_REQUIRED),
@@ -49,7 +47,7 @@ const Register = (): JSX.Element => {
   const {
     control,
     handleSubmit,
-    formState: {errors, isValid},
+    formState: { errors, isValid },
   } = useForm({
     resolver: yupResolver(fromSchema),
     defaultValues: {
@@ -90,7 +88,7 @@ const Register = (): JSX.Element => {
         setIsLoading(false);
       })
       .catch(err => {
-        toast.show(err.message, {type: 'danger', placement: 'top'});
+        toast.show(err.message, { type: 'danger', placement: 'top' });
         console.log(err);
       });
   };
@@ -114,7 +112,7 @@ const Register = (): JSX.Element => {
           <Controller
             control={control}
             name="name"
-            render={({field: {onChange, value}}) => (
+            render={({ field: { onChange, value } }) => (
               <Input
                 onChangeText={onChange}
                 value={value}
@@ -128,7 +126,7 @@ const Register = (): JSX.Element => {
           <Controller
             control={control}
             name="email"
-            render={({field: {onChange, value}}) => (
+            render={({ field: { onChange, value } }) => (
               <Input
                 onChangeText={onChange}
                 value={value}
@@ -142,7 +140,7 @@ const Register = (): JSX.Element => {
           <Controller
             control={control}
             name="phone"
-            render={({field: {onChange, value}}) => (
+            render={({ field: { onChange, value } }) => (
               <InputCountry
                 error={errors.phone?.message}
                 label={'Phone number'}
@@ -165,7 +163,7 @@ const Register = (): JSX.Element => {
           <Controller
             control={control}
             name="password"
-            render={({field: {onChange, value}}) => (
+            render={({ field: { onChange, value } }) => (
               <Input
                 onChangeText={onChange}
                 value={value}
@@ -180,7 +178,7 @@ const Register = (): JSX.Element => {
           <Controller
             control={control}
             name="confirmPassword"
-            render={({field: {onChange, value}}) => (
+            render={({ field: { onChange, value } }) => (
               <Input
                 onChangeText={onChange}
                 value={value}

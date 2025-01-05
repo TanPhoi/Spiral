@@ -1,11 +1,10 @@
-import {forgotPassword, resendOTP, verifyOTPResetPassword} from '@/apis/auth';
-import Button from '@/common/buttons/Button';
+import { forgotPassword, resendOTP, verifyOTPResetPassword } from '@/apis/auth';
 import Input from '@/common/inputs/Input';
-import {EMAIL_REQUIRED, INVALID_EMAIL} from '@/constants/message.constant';
-import {useCountDownTime} from '@/hooks/useCountdownTime';
+import { EMAIL_REQUIRED, INVALID_EMAIL } from '@/constants/message.constant';
+import { useCountDownTime } from '@/hooks/useCountdownTime';
 import colors from '@/themes/colors';
-import {typography} from '@/themes/typography';
-import {yupResolver} from '@hookform/resolvers/yup';
+import { typography } from '@/themes/typography';
+import { yupResolver } from '@hookform/resolvers/yup';
 import {
   Link,
   NavigationProp,
@@ -13,8 +12,8 @@ import {
   useNavigation,
 } from '@react-navigation/native';
 import OTPInputView from '@twotalltotems/react-native-otp-input';
-import React, {useEffect, useState} from 'react';
-import {Controller, useForm} from 'react-hook-form';
+import React, { useEffect, useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
 import {
   ActivityIndicator,
   StyleSheet,
@@ -22,9 +21,11 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {KeyboardAvoidingScrollView} from 'react-native-keyboard-avoiding-scroll-view';
-import {useToast} from 'react-native-toast-notifications';
+import { KeyboardAvoidingScrollView } from 'react-native-keyboard-avoiding-scroll-view';
+import { useToast } from 'react-native-toast-notifications';
 import * as yup from 'yup';
+import notifee from '@notifee/react-native';
+import Button from '@/common/buttons/Button';
 
 const fromSchema = yup.object().shape({
   email: yup.string().required(EMAIL_REQUIRED).email(INVALID_EMAIL),
@@ -34,11 +35,11 @@ const ForgotPassword = (): JSX.Element => {
   const {
     control,
     handleSubmit,
-    formState: {errors, isValid},
+    formState: { errors, isValid },
   } = useForm({
     resolver: yupResolver(fromSchema),
     mode: 'onChange',
-    defaultValues: {email: ''},
+    defaultValues: { email: '' },
   });
 
   const toast = useToast();
@@ -48,7 +49,7 @@ const ForgotPassword = (): JSX.Element => {
   const [loadingBtn, setLoadingBtn] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [isConfirmed, setIsConfirmed] = useState<boolean>(false);
-  const {time, resetCountdown, startCountdown} = useCountDownTime(300);
+  const { time, resetCountdown, startCountdown } = useCountDownTime(300);
   const {
     time: time2,
     isRunning: isRunning2,
@@ -77,7 +78,7 @@ const ForgotPassword = (): JSX.Element => {
       })
       .catch(err => {
         console.log(err);
-        toast.show(err.message, {type: 'danger', placement: 'top'});
+        toast.show(err.message, { type: 'danger', placement: 'top' });
       })
       .finally(() => {
         setLoading(false);
@@ -100,7 +101,7 @@ const ForgotPassword = (): JSX.Element => {
       });
   };
 
-  const onSubmit = (email: {email: string}): void => {
+  const onSubmit = (email: { email: string }): void => {
     setLoadingBtn(true);
     forgotPassword(email)
       .then(() => {
@@ -148,7 +149,7 @@ const ForgotPassword = (): JSX.Element => {
             <Controller
               control={control}
               name="email"
-              render={({field: {onChange, value}}) => (
+              render={({ field: { onChange, value } }) => (
                 <Input
                   placeholder={'e.g. work@site.com'}
                   label={'Email'}
