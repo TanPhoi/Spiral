@@ -1,6 +1,7 @@
 import { getCampaigns, getExploreCampaign } from '@/apis/campaign';
 import { NoCampaign } from '@/assets/svg';
 import ButtonTab from '@/common/buttons/ButtonTab';
+import Layout from '@/common/layouts/Layout';
 import CampaignCard from '@/components/campaigns/CampaignCard';
 import { useAuthContext } from '@/contexts/auth.context';
 import { Influencer } from '@/models/Campaign.model';
@@ -75,36 +76,8 @@ const Workspace = (): JSX.Element => {
   };
 
   return (
-    <SafeAreaView style={styles.root}>
+    <Layout title={'Workspace'}>
       <View style={styles.container}>
-        <View style={styles.headerWordSpace}>
-          <Text style={styles.txtWorkSpace}>Workspace</Text>
-          <View style={styles.headerAction}>
-            <TouchableOpacity>
-              <MagnifyingGlassIcon
-                color={colors.gray[700]}
-                width={24}
-                height={24}
-              />
-            </TouchableOpacity>
-
-            <TouchableOpacity>
-              <AdjustmentsHorizontalIcon
-                color={colors.gray[700]}
-                width={24}
-                height={24}
-              />
-            </TouchableOpacity>
-
-            <View>
-              <TouchableOpacity>
-                <View style={styles.alert}></View>
-                <BellIcon color={colors.gray[700]} width={24} height={24} />
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
-
         {/* Tabs */}
         <View style={styles.tabs}>
           <ButtonTab
@@ -147,7 +120,7 @@ const Workspace = (): JSX.Element => {
           )}
         </View>
       </View>
-    </SafeAreaView>
+    </Layout>
   );
 };
 

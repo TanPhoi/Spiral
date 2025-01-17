@@ -17,7 +17,10 @@ const ContentCard = ({ content }: ContentCardProps): JSX.Element => {
     const navigation: NavigationProp<ParamListBase> = useNavigation()
 
     const handleViewContentDetail = (): void => {
-        navigation.navigate('content-detail', { id: content?.id })
+        navigation.navigate(
+            content.approved === 'rejected'
+                ? 'content-detail-rejected'
+                : 'content-detail', { id: content?.id })
     }
 
     return (

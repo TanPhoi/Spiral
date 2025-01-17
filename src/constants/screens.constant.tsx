@@ -67,19 +67,14 @@ const createTabNavigator = ({
 
 export const homeScreens: TabScreenConfig[] = [
   { name: 'home', component: Home, icon: IcHome },
-  { name: 'geo-location', component: GeoLocation, icon: IcHome },
 ];
 
 export const workspaceScreens: TabScreenConfig[] = [
   { name: 'workspace', component: Workspace, icon: IcWork_space },
-  { name: 'campaign-details', component: CampaignDetails, icon: IcWork_space },
-  { name: 'create-content', component: CreateContent, icon: IcWork_space },
-  { name: 'success_submit_content', component: SuccessSubmitContent, icon: IcWork_space },
 ];
 
 export const contentScreens: TabScreenConfig[] = [
   { name: 'content', component: Content, icon: IcContent },
-  { name: 'content-detail', component: ContentDetail, icon: IcContent },
 ];
 
 export const reportScreens: TabScreenConfig[] = [

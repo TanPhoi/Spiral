@@ -13,6 +13,7 @@ import { NavigationProp, ParamListBase, useNavigation } from '@react-navigation/
 import { FlatList, GestureHandlerRootView, PanGestureHandler, PanGestureHandlerGestureEvent } from 'react-native-gesture-handler'
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import { runOnJS } from 'react-native-reanimated'
+import Button from '@/common/buttons/Button'
 
 const screenWidth = Dimensions.get('window').width;
 

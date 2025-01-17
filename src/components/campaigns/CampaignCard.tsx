@@ -74,7 +74,7 @@ const CampaignCard = ({
 
   return (
     <TouchableOpacity style={styles.container} onPress={() => {
-      campaign.status === 'joined_campaign' && handleReview()
+      handleReview()
     }}>
       <View style={styles.brandBox}>
         <Image

@@ -14,6 +14,8 @@ import { getCampaigns } from '@/apis/campaign';
 import { useAuthContext } from '@/contexts/auth.context';
 import { Influencer } from '@/models/Campaign.model';
 import ConnectionStatus from '@/components/profile/ConnectionStatus';
+import NetworkLogger from 'react-native-network-logger';
+import Layout from '@/common/layouts/Layout';
 
 const Home = (): JSX.Element => {
   const { userInfo } = useAuthContext()
@@ -111,16 +113,21 @@ const Home = (): JSX.Element => {
 
         <LinearGradient colors={[colors.blue[100], colors.emerald[50]]}>
           <View style={styles.joinedCampaign}>
-            <View style={styles.labelCampaign}>
+            <TouchableOpacity
+              onPress={(): void => navigation.navigate('Workspace', { screen: 'Workspace' })}
+              style={styles.labelCampaign}>
               <Text style={styles.txtCampaignJoined}>Campaign Joined</Text>
               <ArrowRightCircleIcon width={24} height={24} color={colors.gray[700]} />
-            </View>
+            </TouchableOpacity>
 
             <View>
               <FlatList
                 showsHorizontalScrollIndicator={false}
                 horizontal
                 data={campaigns}
+                initialNumToRender={10}
+                maxToRenderPerBatch={10}
+                keyExtractor={(item, index) => item?.id ? item.id.toString() : index.toString()}
                 renderItem={({ item }) => (
                   <View style={styles.campaignCard}>
                     <CampaignCard
@@ -137,14 +144,19 @@ const Home = (): JSX.Element => {
         </LinearGradient>
 
         <View style={styles.joinedCampaignV}>
-          <View style={styles.labelCampaign}>
+          <TouchableOpacity
+            onPress={(): void => navigation.navigate('Workspace', { screen: 'Workspace' })}
+            style={styles.labelCampaign}>
             <Text style={styles.txtCampaignJoined}>Campaign for you</Text>
             <ArrowRightCircleIcon width={24} height={24} color={colors.gray[700]} />
-          </View>
+          </TouchableOpacity>
 
           <FlatList
             scrollEnabled={false}
             data={campaigns}
+            initialNumToRender={10}
+            maxToRenderPerBatch={10}
+            keyExtractor={(item, index) => item?.id ? item.id.toString() : index.toString()}
             showsVerticalScrollIndicator={false}
             renderItem={({ item }) => (
               <View style={styles.campaignCardV}>

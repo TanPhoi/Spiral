@@ -81,11 +81,11 @@ const ContentDetail = (): JSX.Element => {
                                 loop
                                 ref={ref}
                                 width={width}
+                                height={width}
                                 enabled={content?.urls.length as number > 1}
                                 snapEnabled={true}
                                 autoPlayInterval={2000}
                                 scrollAnimationDuration={1000}
-                                height={width}
                                 defaultScrollOffsetValue={scrollOffsetValue}
                                 data={content?.urls as string[]}
                                 onSnapToItem={(index: number) => setCurrentIndex(index)}

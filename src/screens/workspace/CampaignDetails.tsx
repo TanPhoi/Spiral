@@ -224,15 +224,18 @@ const CampaignDetails = (): JSX.Element => {
         />
 
         {campaign?.status === 'joined_campaign' && (
-          <ButtonBase
-            title={'Create Content'}
-            color={'white'}
-            background={colors.blue[600]}
-            size="md"
-            onPress={(): void =>
-              navigation.navigate('create-content', { id: location?.params?.id })
-            }
-          />
+          <View style={styles.buttonCreate}>
+            <ButtonBase
+              title={'Create Content'}
+              color={'white'}
+              background={colors.blue[600]}
+              size="md"
+              onPress={(): void =>
+                navigation.navigate('create-content', { id: location?.params?.id })
+              }
+            />
+          </View>
+
         )}
       </SafeAreaView>
     </View>
@@ -376,6 +379,9 @@ const styles = StyleSheet.create({
   },
   button: {
     marginHorizontal: 16,
+  },
+  buttonCreate: {
+    marginBottom: 10
   },
 });
 

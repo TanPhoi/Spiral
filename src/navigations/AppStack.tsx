@@ -1,9 +1,17 @@
-import {tabScreens} from '@/constants/screens.constant';
+import { tabScreens } from '@/constants/screens.constant';
+import ContentDetail from '@/screens/content/ContentDetail';
+import ContentDetailRejected from '@/screens/content/ContentDetailRejected';
+import GeoLocation from '@/screens/home/GeoLocation';
+import Notification from '@/screens/notification/Notification';
+import CampaignDetails from '@/screens/workspace/CampaignDetails';
+import CreateContent from '@/screens/workspace/CreateContent';
+import SuccessSubmitContent from '@/screens/workspace/SuccessSubmitContent';
 import colors from '@/themes/colors';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {ParamListBase, RouteProp} from '@react-navigation/native';
-import React, {JSX} from 'react';
-import {StyleSheet, View} from 'react-native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { ParamListBase, RouteProp } from '@react-navigation/native';
+import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/stack';
+import React, { JSX } from 'react';
+import { StyleSheet, View } from 'react-native';
 
 type CustomRouteProp = RouteProp<ParamListBase, string> & {
   state?: {
@@ -13,11 +21,12 @@ type CustomRouteProp = RouteProp<ParamListBase, string> & {
 };
 
 const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
-const AppStack = (): JSX.Element => {
+const TabNavigator = (): JSX.Element => {
   return (
     <Tab.Navigator
-      screenOptions={({route}) => {
+      screenOptions={({ route }) => {
         return {
           headerShown: false,
           tabBarHideOnKeyboard: true,
@@ -53,15 +62,15 @@ const AppStack = (): JSX.Element => {
               const shouldBeUpdate = route?.state && route.state.index !== 0;
 
               if (route.name == 'Profile' && shouldBeUpdate) {
-                navigation.reset({index: 0, routes: [{name: 'Profile'}]});
+                navigation.reset({ index: 0, routes: [{ name: 'Profile' }] });
               }
               if (route.name == 'Workspace' && shouldBeUpdate) {
-                navigation.reset({index: 0, routes: [{name: 'Workspace'}]});
+                navigation.reset({ index: 0, routes: [{ name: 'Workspace' }] });
               }
             },
           })}
           options={{
-            tabBarIcon: ({focused, color}) => {
+            tabBarIcon: ({ focused, color }) => {
               const IconComponent = screen.icon;
               return (
                 <View style={styles.iconContainer}>
@@ -99,4 +108,21 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AppStack;
+export default function AppStack() {
+  return (
+    <Stack.Navigator screenOptions={{
+      headerShown: false,
+    }}>
+      <Stack.Screen name="main" component={TabNavigator} />
+      <Stack.Screen name="campaign-details" component={CampaignDetails} />
+      <Stack.Screen name="geo-location" component={GeoLocation} />
+      <Stack.Screen name="create-content" component={CreateContent} />
+      <Stack.Screen name="success_submit_content" component={SuccessSubmitContent} />
+      <Stack.Screen name="content-detail" component={ContentDetail} />
+      <Stack.Screen name="content-detail-rejected" component={ContentDetailRejected} />
+      <Stack.Screen name="notification" component={Notification} options={{
+        animationEnabled: true
+      }} />
+    </Stack.Navigator>
+  )
+}
