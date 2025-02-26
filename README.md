@@ -4,6 +4,7 @@ Spiral project creates campaigns, can log in with social networks: Facebook, Goo
 #Link Deploy: https://dply.me/9nnmfb
 
 # Demo
+https://github.com/user-attachments/assets/20e13f31-a160-4e6d-873f-8dabad7a916b
 
 # Technology used
 - React Native(TypeScript)
